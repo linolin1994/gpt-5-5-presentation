@@ -225,6 +225,70 @@
             font-weight: 500;
         }
 
+        /* === Arc timeline (multi-year strategy) === */
+        .arc-timeline {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            position: relative;
+            margin-top: 14px;
+        }
+        .arc-timeline::before {
+            content: '';
+            position: absolute;
+            top: 32px;
+            left: 5%;
+            right: 5%;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(148, 163, 184, 0.18), rgba(6, 182, 212, 0.55) 80%, rgba(6, 182, 212, 0.85));
+        }
+        .arc-node {
+            background-color: rgba(15, 23, 42, 0.55);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px 14px 16px 14px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .arc-node.highlight {
+            border-color: rgba(6, 182, 212, 0.55);
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.10), rgba(15, 23, 42, 0.55) 70%);
+        }
+        .arc-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.18);
+            margin-bottom: 14px;
+        }
+        .arc-node.highlight .arc-dot {
+            background: var(--accent-warm);
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.22);
+        }
+        .arc-date {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-primary);
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+        .arc-node.highlight .arc-date { color: var(--accent-warm); }
+        .arc-node h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            line-height: 1.25;
+            font-weight: 700;
+        }
+        .arc-node p {
+            font-size: 12.5px;
+            line-height: 1.55;
+            color: var(--text-muted);
+        }
+
         .slide-footnote {
             margin-top: auto;
             font-size: 12px;
@@ -593,22 +657,22 @@
         /* === Risk grid === */
         .risk-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
             height: 100%;
         }
         .risk-card {
             background-color: rgba(15, 23, 42, 0.55);
             border: 1px solid var(--border-color);
             border-radius: 14px;
-            padding: 26px 24px;
+            padding: 22px 20px;
             display: flex;
             flex-direction: column;
             border-top: 3px solid var(--accent-warm);
         }
         .risk-card .stat-num {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 38px;
+            font-size: 32px;
             font-weight: 700;
             color: var(--accent-warm);
             line-height: 1.1;
@@ -616,22 +680,108 @@
             letter-spacing: -1px;
         }
         .risk-card .stat-label {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-dim);
             letter-spacing: 1px;
             text-transform: uppercase;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
         .risk-card h3 {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--text-main);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             line-height: 1.3;
         }
         .risk-card p {
-            font-size: 13.5px;
+            font-size: 12.5px;
             color: var(--text-muted);
-            line-height: 1.65;
+            line-height: 1.6;
+        }
+
+        /* === Decision tree === */
+        .decision-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+            margin-top: 14px;
+        }
+        .decision-card {
+            background: rgba(15, 23, 42, 0.55);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 22px 24px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+        .decision-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-primary);
+        }
+        .decision-card.openai::before { background: linear-gradient(180deg, #10A37F, #06B6D4); }
+        .decision-card.anthropic::before { background: linear-gradient(180deg, #D97706, #F59E0B); }
+        .decision-card.google::before { background: linear-gradient(180deg, #4285F4, #34A853); }
+        .decision-card.image::before { background: linear-gradient(180deg, #8B5CF6, #06B6D4); }
+        .decision-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 13px;
+            background: rgba(6, 182, 212, 0.10);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--accent-primary);
+            border: 1px solid rgba(6, 182, 212, 0.22);
+        }
+        .decision-body { display: flex; flex-direction: column; gap: 6px; }
+        .decision-task {
+            font-size: 11px;
+            color: var(--text-dim);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .decision-body h3 {
+            font-size: 17px;
+            color: var(--text-main);
+            line-height: 1.3;
+            margin-bottom: 2px;
+        }
+        .decision-body p {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+        .decision-pick {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            text-align: right;
+            gap: 2px;
+            border-left: 1px solid var(--border-color);
+            padding-left: 18px;
+            min-width: 130px;
+        }
+        .decision-vendor {
+            font-size: 10.5px;
+            color: var(--text-dim);
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+        .decision-model {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 17px;
+            color: var(--text-main);
+            font-weight: 700;
+            line-height: 1.2;
         }
 
         /* === Closing === */
@@ -717,7 +867,7 @@
 
 <!-- Slide 2: Timeline -->
 <div class="slide-container">
-    <span class="slide-num">02 / 09</span>
+    <span class="slide-num">02 / 11</span>
     <span class="slide-subtitle">時代背景</span>
     <h2 class="slide-title">為什麼這一週特別重要</h2>
     <div class="content-area">
@@ -753,9 +903,63 @@
     </div>
 </div>
 
-<!-- Slide 3: Why Chinese Works Now -->
+<!-- Slide 3: Two-year arc -->
 <div class="slide-container">
-    <span class="slide-num">03 / 09</span>
+    <span class="slide-num">03 / 11</span>
+    <span class="slide-subtitle">兩年戰略軌跡</span>
+    <h2 class="slide-title">拉遠看：這一週是兩年累積的拐點</h2>
+    <div class="content-area">
+        <p style="font-size: 16px; color: var(--text-muted); margin-bottom: 28px; max-width: 980px; line-height: 1.7;">
+            從 GPT-4o 的「即時對話」、GPT-4.1 的「百萬上下文」，到 GPT-5 系列導入「代理執行」，OpenAI 的主線一直在往「可交付成果」靠近，而非單純比聰明。本週的兩款發布是這條軌跡的最新節點。
+        </p>
+        <div class="arc-timeline">
+            <div class="arc-node">
+                <div class="arc-dot"></div>
+                <div class="arc-date">2024 / 05</div>
+                <h3>GPT-4o</h3>
+                <p>原生多模態旗艦；啟動「即時語音對話」時代。</p>
+            </div>
+            <div class="arc-node">
+                <div class="arc-dot"></div>
+                <div class="arc-date">2025 / 04</div>
+                <h3>GPT-4.1</h3>
+                <p>API 專用；首次推出 1M 上下文與更強指令遵循。</p>
+            </div>
+            <div class="arc-node">
+                <div class="arc-dot"></div>
+                <div class="arc-date">2025 / 08</div>
+                <h3>GPT-5</h3>
+                <p>統一系統架構；導入 safe-completion，瞄準更難的工作。</p>
+            </div>
+            <div class="arc-node">
+                <div class="arc-dot"></div>
+                <div class="arc-date">2026 / 03</div>
+                <h3>GPT-5.4</h3>
+                <p>主線首款具 native computer use 能力，邁入「能操作軟體」的代理階段。</p>
+            </div>
+            <div class="arc-node highlight">
+                <div class="arc-dot"></div>
+                <div class="arc-date">2026 / 04 / 21</div>
+                <h3>GPT Image 2</h3>
+                <p>視覺生成從美學工具升級為「可交付商業素材」的生產引擎。</p>
+            </div>
+            <div class="arc-node highlight">
+                <div class="arc-dot"></div>
+                <div class="arc-date">2026 / 04 / 23</div>
+                <h3>GPT-5.5</h3>
+                <p>更少提示腳手架、更強工具精度、更高代理完成度的旗艦。</p>
+            </div>
+        </div>
+        <div class="slide-footnote" style="margin-top: 24px;">
+            觀察：每一代的進化方向都不是「更會聊天」，而是「能不能直接交付任務結果」。GPT-5.5 是這條主線的當前節點，不是終點。<br>
+            資料來源：<a href="https://openai.com/index/hello-gpt-4o/" target="_blank">OpenAI · GPT-4o</a>、<a href="https://openai.com/index/gpt-4-1/" target="_blank">GPT-4.1</a>、<a href="https://openai.com/index/introducing-gpt-5/" target="_blank">GPT-5</a>、<a href="https://openai.com/index/introducing-gpt-5-5/" target="_blank">GPT-5.5</a>、<a href="https://openai.com/index/introducing-chatgpt-images-2-0/" target="_blank">ChatGPT Images 2.0</a>。
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Why Chinese Works Now -->
+<div class="slide-container">
+    <span class="slide-num">04 / 11</span>
     <span class="slide-subtitle">技術突破 · 視覺</span>
     <h2 class="slide-title">為什麼 GPT Image 2 寫的中文，終於不再亂跑？</h2>
     <div class="content-area">
@@ -794,7 +998,7 @@
 
 <!-- Slide 4: Visual Three-way -->
 <div class="slide-container">
-    <span class="slide-num">04 / 09</span>
+    <span class="slide-num">05 / 11</span>
     <span class="slide-subtitle">市場格局 · 視覺生成</span>
     <h2 class="slide-title">同樣是 AI 視覺生成，三家走的路完全不同</h2>
     <div class="content-area">
@@ -809,7 +1013,7 @@
                     <li><span class="label">文字</span><span class="value">基礎可用</span></li>
                     <li><span class="label">定價</span><span class="value">業界最低</span></li>
                 </ul>
-                <div class="vendor-tagline">適合社群媒體高頻發文、快速驗證創意，量大成本敏感場景的首選。</div>
+                <div class="vendor-tagline">適合社群媒體高頻發文、快速驗證創意，量大且成本敏感的場景。</div>
             </div>
             <div class="vendor-card google">
                 <span class="vendor-tag">Google</span>
@@ -845,7 +1049,7 @@
 
 <!-- Slide 5: Demo (滴雞精) -->
 <div class="slide-container">
-    <span class="slide-num">05 / 09</span>
+    <span class="slide-num">06 / 11</span>
     <span class="slide-subtitle">情境演示</span>
     <h2 class="slide-title">一張模糊商品照 → 完整廣告文宣</h2>
     <div class="content-area">
@@ -889,7 +1093,7 @@
 
 <!-- Slide 6: Three LLM personalities -->
 <div class="slide-container">
-    <span class="slide-num">06 / 09</span>
+    <span class="slide-num">07 / 11</span>
     <span class="slide-subtitle">市場格局 · 語言模型</span>
     <h2 class="slide-title">三大語言模型，三種完全不同的個性</h2>
     <div class="content-area">
@@ -899,36 +1103,36 @@
                 <h3>GPT-5.5</h3>
                 <span class="vendor-persona">「自主執行者」</span>
                 <ul class="vendor-feature-list">
-                    <li><span class="label">擅長</span><span class="value">代理任務、工具串接、多步驟容錯</span></li>
-                    <li><span class="label">標誌</span><span class="value">Terminal-Bench 2.0：82.7%</span></li>
-                    <li><span class="label">上下文</span><span class="value">1,050,000 tokens</span></li>
+                    <li><span class="label">擅長</span><span class="value">代理執行 + 知識工作（GDPval）</span></li>
+                    <li><span class="label">標誌 1</span><span class="value">Terminal-Bench 2.0：82.7%</span></li>
+                    <li><span class="label">標誌 2</span><span class="value">GDPval（職業任務）：84.9%</span></li>
                     <li><span class="label">弱點</span><span class="value">過度自信、不善表達不確定性</span></li>
                 </ul>
-                <div class="vendor-tagline">當任務需要連續執行 20–30 步驟、跨工具操作而不需人類介入時最佳。</div>
+                <div class="vendor-tagline">當任務需要連續執行 20–30 步驟、跨工具操作而不需人類介入時表現最穩定。</div>
             </div>
             <div class="vendor-card anthropic">
                 <span class="vendor-tag">Anthropic</span>
                 <h3>Claude Opus 4.7</h3>
                 <span class="vendor-persona">「謹慎的工匠」</span>
                 <ul class="vendor-feature-list">
-                    <li><span class="label">擅長</span><span class="value">嚴謹邏輯、邊界處理、不確定性表達</span></li>
-                    <li><span class="label">標誌</span><span class="value">SWE-bench Pro 64.3%（領先 GPT-5.5）</span></li>
-                    <li><span class="label">上下文</span><span class="value">1,000,000 tokens</span></li>
-                    <li><span class="label">特點</span><span class="value">內建破壞性操作的安全護欄</span></li>
+                    <li><span class="label">擅長</span><span class="value">深度軟體工程 + 高難學術推理</span></li>
+                    <li><span class="label">標誌 1</span><span class="value">SWE-Bench Pro：64.3%（領先 GPT-5.5）</span></li>
+                    <li><span class="label">標誌 2</span><span class="value">HLE 無工具：46.9%（三家最高）</span></li>
+                    <li><span class="label">特點</span><span class="value">1M 上下文無加價、內建破壞性操作護欄</span></li>
                 </ul>
-                <div class="vendor-tagline">高風險、不可逆操作（程式碼審查、法律文件、醫療判讀）的首選。</div>
+                <div class="vendor-tagline">適合真實 bug 修復、高解析截圖理解、文件修訂、長時程記憶協作。</div>
             </div>
             <div class="vendor-card google">
                 <span class="vendor-tag">Google</span>
                 <h3>Gemini 3.1 Pro</h3>
                 <span class="vendor-persona">「博學的圖書館員」</span>
                 <ul class="vendor-feature-list">
-                    <li><span class="label">擅長</span><span class="value">多模態整合、推理科學任務</span></li>
-                    <li><span class="label">標誌</span><span class="value">影片 / 音訊 / PDF 一網打盡</span></li>
-                    <li><span class="label">上下文</span><span class="value">1M tokens（與另兩家相當）</span></li>
-                    <li><span class="label">優勢</span><span class="value">同等任務成本顯著較低</span></li>
+                    <li><span class="label">擅長</span><span class="value">搜尋整合代理 + 多模態推理</span></li>
+                    <li><span class="label">標誌 1</span><span class="value">BrowseComp：85.9%（三家最高）</span></li>
+                    <li><span class="label">標誌 2</span><span class="value">GPQA Diamond（科學）：94.3%</span></li>
+                    <li><span class="label">優勢</span><span class="value">影片 / 音訊 / PDF 一網打盡 + 價格最低</span></li>
                 </ul>
-                <div class="vendor-tagline">真正吃下整支影片、整份 PDF、整段語音；同時對成本效益敏感的研究與分析任務最佳。</div>
+                <div class="vendor-tagline">適合搜尋型研究、整支影片或整份 PDF 分析、成本敏感的大規模多模態任務。</div>
             </div>
         </div>
         <div class="slide-footnote">
@@ -941,7 +1145,7 @@
 
 <!-- Slide 7: GPT-5.5 signature breakthroughs -->
 <div class="slide-container">
-    <span class="slide-num">07 / 09</span>
+    <span class="slide-num">08 / 11</span>
     <span class="slide-subtitle">標誌性突破</span>
     <h2 class="slide-title">GPT-5.5 兩個值得記住的時刻</h2>
     <div class="content-area">
@@ -975,7 +1179,7 @@
 
 <!-- Slide 8: Real costs and limits -->
 <div class="slide-container">
-    <span class="slide-num">08 / 09</span>
+    <span class="slide-num">09 / 11</span>
     <span class="slide-subtitle">不能忽略的另一面</span>
     <h2 class="slide-title">真實成本、配額落差、與已知限制</h2>
     <div class="content-area">
@@ -1003,6 +1207,12 @@
                 <h3>生物與網安被列為高風險</h3>
                 <p>OpenAI 首次將 GPT-5.5 在生物威脅與網路安全兩個領域評為「High」等級。已啟動 Bio Bug Bounty，並在 API 層加入安全分類器與軌跡監控。</p>
             </div>
+            <div class="risk-card">
+                <div class="stat-num">+35%</div>
+                <div class="stat-label">隱性計價陷阱</div>
+                <h3>同樣的字，不同的 token 數</h3>
+                <p>Anthropic 新 tokenizer 對相同文本可能多出約 <strong style="color: var(--text-main);">35%</strong> token；GPT-5.5 上下文 &gt;272K 時輸入 ×2、輸出 ×1.5；Gemini &gt;200K 升價；Claude 1M 全段無加價。<strong style="color: var(--text-main);">名目單價無法直接比較。</strong></p>
+            </div>
         </div>
         <div class="slide-footnote">
             其他已知限制：模型仍傾向「自信錯誤」（confidently wrong）、長指令會被壓縮近似；高風險或不可逆操作建議搭配 Claude Opus 4.7 的不確定性表達能力作為交叉驗證。<br>
@@ -1011,9 +1221,75 @@
     </div>
 </div>
 
-<!-- Slide 9: Closing -->
+<!-- Slide 10: Decision tree -->
 <div class="slide-container">
-    <span class="slide-num">09 / 09</span>
+    <span class="slide-num">10 / 11</span>
+    <span class="slide-subtitle">決策框架</span>
+    <h2 class="slide-title">選哪一家？四個任務情境的對應建議</h2>
+    <div class="content-area">
+        <p style="font-size: 16px; color: var(--text-muted); margin-bottom: 28px; max-width: 980px; line-height: 1.7;">
+            沒有「最強模型」，只有「最對的模型」。把任務情境放在前面，再回頭決定該用哪一家——這是 C-suite 採購最該記住的一句話。
+        </p>
+        <div class="decision-grid">
+            <div class="decision-card openai">
+                <div class="decision-icon"><i class="fa-solid fa-robot"></i></div>
+                <div class="decision-body">
+                    <span class="decision-task">代理執行 · 電腦操作 · 知識工作</span>
+                    <h3>跨工具自動化、長步驟交付</h3>
+                    <p>Terminal-Bench 82.7%、GDPval 84.9%；任務需連續執行 20–30 步驟而不需人類介入時表現最穩定。</p>
+                </div>
+                <div class="decision-pick">
+                    <span class="decision-vendor">OpenAI</span>
+                    <span class="decision-model">GPT-5.5</span>
+                </div>
+            </div>
+            <div class="decision-card anthropic">
+                <div class="decision-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="decision-body">
+                    <span class="decision-task">深度軟體工程 · 文件修訂 · 高難學術</span>
+                    <h3>真實 bug 修復、長時程記憶協作</h3>
+                    <p>SWE-Bench Pro 64.3%、HLE 46.9%；高解析截圖理解、檔案系統記憶、1M 上下文無加價。</p>
+                </div>
+                <div class="decision-pick">
+                    <span class="decision-vendor">Anthropic</span>
+                    <span class="decision-model">Claude Opus 4.7</span>
+                </div>
+            </div>
+            <div class="decision-card google">
+                <div class="decision-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <div class="decision-body">
+                    <span class="decision-task">搜尋整合 · 多模態 · 成本敏感</span>
+                    <h3>搜尋型研究、影音 / PDF 一網打盡</h3>
+                    <p>BrowseComp 85.9%、GPQA Diamond 94.3%；同等任務名目單價最低，適合大規模多模態分析。</p>
+                </div>
+                <div class="decision-pick">
+                    <span class="decision-vendor">Google</span>
+                    <span class="decision-model">Gemini 3.1 Pro</span>
+                </div>
+            </div>
+            <div class="decision-card image">
+                <div class="decision-icon"><i class="fa-solid fa-palette"></i></div>
+                <div class="decision-body">
+                    <span class="decision-task">視覺素材 · 廣告文宣 · 多語排版</span>
+                    <h3>文字準確的商業設計與編修</h3>
+                    <p>字元級準確率近 100%、3 秒 / 張、單次提示 8 張一致風格；廣告海報、雜誌主視覺、含密集中文資訊圖表。</p>
+                </div>
+                <div class="decision-pick">
+                    <span class="decision-vendor">OpenAI</span>
+                    <span class="decision-model">GPT Image 2</span>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footnote" style="margin-top: 24px;">
+            建議導入順序：先用實際業務流程做兩週並行測試，比對「總任務成本」（不是 per-token 單價）與「首輪成功率」，再決定哪個情境綁哪一家。<br>
+            資料來源：<a href="https://openai.com/index/introducing-gpt-5-5/" target="_blank">OpenAI · GPT-5.5</a>、<a href="https://www.anthropic.com/news/claude-opus-4-7" target="_blank">Anthropic · Claude Opus 4.7</a>、<a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/" target="_blank">Google · Gemini 3.1 Pro</a>、<a href="https://openai.com/index/introducing-chatgpt-images-2-0/" target="_blank">OpenAI · ChatGPT Images 2.0</a>。
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11: Closing -->
+<div class="slide-container">
+    <span class="slide-num">11 / 11</span>
     <span class="slide-subtitle">結語</span>
     <div class="closing-content">
         <p class="closing-thesis">
