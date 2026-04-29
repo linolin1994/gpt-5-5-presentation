@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 的新紀元：從輔助工具到虛擬員工</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 1. THE SETUP & VARIABLES */
+        :root {
+            --bg-color: #0B1121; /* Dark navy background */
+            --slide-bg: #151E32; /* Slightly lighter container */
+            --text-main: #F8FAFC; /* Off-white for headings */
+            --text-muted: #94A3B8; /* Slate for body text */
+            --accent-primary: #06B6D4; /* Cyan */
+            --accent-secondary: #38BDF8; /* Light Blue */
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            padding: 40px 0;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            background-color: var(--slide-bg);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 60px;
+        }
+
+        /* Background Design - Glowing Blobs */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: -25%;
+            left: -15%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, rgba(21, 30, 50, 0) 65%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .slide-container::after {
+            content: '';
+            position: absolute;
+            bottom: -25%;
+            right: -15%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, rgba(21, 30, 50, 0) 65%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .slide-container > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 2. CONSISTENT TYPOGRAPHY */
+        h1, h2, h3, h4, .table-layout th {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        p, li, td {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .slide-title {
+            font-size: 44px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            width: 100%;
+            text-align: left;
+            color: var(--text-main);
+        }
+
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        /* Highlight text styling */
+        strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .accent-text {
+            color: var(--accent-primary);
+        }
+
+        /* 3. LAYOUT DEFINITIONS */
+
+        /* Bleed Image Right */
+        .slide-container.bleed-image-layout {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 50px;
+            padding: 0;
+            align-items: start;
+        }
+
+        .bleed-image-layout > .content-container {
+            padding: 80px 0 80px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 720px;
+        }
+
+        .bleed-image-layout > .image-container {
+            height: 720px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .bleed-image-side {
+            width: 100%;
+            height: 720px;
+            object-fit: cover;
+            border-radius: 0 16px 16px 0;
+            display: block;
+        }
+
+        /* Two Column Standard */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            height: 100%;
+        }
+
+        /* Two Column (Wide Image for Infographics) */
+        .two-column-wide-img {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 40px;
+            align-items: center;
+            height: 100%;
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 480px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-wrapper.contain-img {
+            background-color: transparent;
+            border: none;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            height: 520px; /* Slightly taller for the detailed image */
+        }
+
+        .image-wrapper.contain-img img {
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        /* Tiled Content */
+        .tiled-content {
+            display: flex;
+            gap: 30px;
+            justify-content: space-between;
+            align-items: stretch;
+            height: 100%;
+        }
+
+        .tile {
+            flex: 1;
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .tile .icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(6, 182, 212, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: var(--accent-primary);
+            margin-bottom: 24px;
+        }
+
+        .tile h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .tile p {
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* Styled Bullet Points */
+        .bullet-list {
+            width: 100%;
+        }
+
+        .bullet-list ul {
+            list-style: none;
+        }
+
+        .bullet-list li {
+            display: block;
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 35px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .bullet-list i {
+            position: absolute;
+            left: 0;
+            top: 4px;
+            font-size: 24px;
+            color: var(--accent-primary);
+        }
+
+        .compact-list li {
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        /* Table Layout */
+        .table-layout {
+            width: 100%;
+            background-color: rgba(30, 41, 59, 0.5);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 20px 24px;
+        }
+
+        th {
+            background-color: rgba(15, 23, 42, 0.8);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--accent-primary);
+        }
+
+        td {
+            border-bottom: 1px solid var(--border-color);
+            font-size: 15px;
+            vertical-align: top;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-subtext {
+            display: block;
+            font-size: 13px;
+            color: #64748B;
+            margin-top: 6px;
+        }
+
+        /* Demo Workflow Slide */
+        .demo-workflow {
+            display: grid;
+            grid-template-columns: 1fr 60px 1.15fr;
+            gap: 24px;
+            align-items: stretch;
+            height: 100%;
+            width: 100%;
+        }
+
+        .demo-input-col {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .demo-step {
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+        }
+
+        .demo-step .step-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 10px;
+        }
+
+        .demo-step .step-label .num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: var(--accent-primary);
+            color: var(--bg-color);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .demo-step h4 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .demo-source-img {
+            width: 100%;
+            height: 130px;
+            object-fit: contain;
+            background-color: #fff;
+            border-radius: 8px;
+            margin-top: 4px;
+        }
+
+        .demo-source-img.blurry-source {
+            filter: blur(1.5px) saturate(0.85);
+            opacity: 0.92;
+        }
+
+        .prompt-card {
+            flex: 1;
+            background-color: rgba(15, 23, 42, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 16px 18px;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .prompt-card .prompt-title {
+            font-size: 13px;
+            color: var(--accent-primary);
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .prompt-card .prompt-product {
+            font-size: 14px;
+            color: var(--text-main);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .prompt-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .prompt-card li {
+            font-size: 12px;
+            line-height: 1.55;
+            color: var(--text-muted);
+            padding-left: 14px;
+            position: relative;
+            margin-bottom: 4px;
+        }
+
+        .prompt-card li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: var(--accent-primary);
+        }
+
+        .demo-arrow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .demo-arrow .arrow-icon {
+            font-size: 32px;
+            color: var(--accent-primary);
+            background-color: rgba(6, 182, 212, 0.12);
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .demo-arrow .arrow-label {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 11px;
+            color: var(--accent-primary);
+            text-align: center;
+            letter-spacing: 1px;
+            font-weight: 600;
+            line-height: 1.4;
+            white-space: nowrap;
+        }
+
+        .demo-output {
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .demo-output .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .demo-output .output-img-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.02);
+            position: relative;
+        }
+
+        .demo-output .output-img-wrapper .ai-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 2;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+        }
+
+        .demo-output img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            max-height: 460px;
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: var(--bg-color);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 999px;
+            letter-spacing: 0.8px;
+        }
+
+        /* Cover Slide - Full image */
+        .slide-container.cover-slide {
+            padding: 0;
+        }
+
+        .slide-container.cover-slide::before,
+        .slide-container.cover-slide::after {
+            display: none;
+        }
+
+        .slide-container.cover-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 16px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Slide 1 -->
+<div class="slide-container cover-slide" id="slide1">
+    <img src="cover.png" alt="從輔助工具演進為虛擬員工 - ChatGPT 5.5 × Image 2.0">
+</div>
+
+<!-- Slide 2 -->
+<div class="slide-container" id="slide2">
+    <h2 class="slide-title">GPT-5.5：具備執行力的「AI 代理人」</h2>
+    <div class="content-area">
+        <div class="tiled-content">
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-route"></i></div>
+                <h3>從「單點對話」到「帶狀流程」</h3>
+                <p>過去需要分段下指令；現在你可以直接說：「針對這本 50 頁的白皮書，寫成三篇不同語氣的社群貼文、配好標籤，並直接存入 Google Drive 協作夾」，一次完成。</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                <h3>自主研究員</h3>
+                <p>能主動開啟瀏覽器查找資料、交叉比對事實、查核假新聞，最後輸出結構化的背景資料夾，而不是只給你一段文字。</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-laptop-code"></i></div>
+                <h3>跨軟體操作</h3>
+                <p>能模擬人類操作電腦，在 Excel、Word、Email 和專案管理工具（如 Notion/Asana）之間移動資料，處理繁瑣的行政流程。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">GPT Image 2.0：精準可控的 AI 視覺總監</h2>
+    <div class="content-area">
+        <!-- Changed to a wider image layout to fit the detailed infographic -->
+        <div class="two-column-wide-img">
+            <div class="bullet-list compact-list">
+                <ul>
+                    <li>
+                        <i class="fa-solid fa-trophy"></i>
+                        <strong>Arena 第一名：</strong> 在第三方公開的 Text-to-Image Arena 排行榜中，GPT Image 2 以 <strong>1,512 分</strong>領先所有對手，明顯拋開 Nano Banana 2、Flux 2 等競爭者。
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-language"></i>
+                        <strong>文字不再「翻車」：</strong> 業界第一個能精準渲染中、英、日文的模型，文字準確率 >95%，廣告圖可直接帶入完整中文文案，不再需要設計師重新補字。
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-brain"></i>
+                        <strong>先想後畫（Thinking Mode）：</strong> 先推理構圖邏輯再產出畫面，從商品素材到完整排版、ICON 與賣點配置，具真實商業參考價值。
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <!-- Added "contain-img" class so the infographic doesn't get cropped -->
+                <div class="image-wrapper contain-img">
+                    <img src="arena-bench.jpeg" alt="GPT Image 2 在 Text-to-Image Arena 排名第一">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: GPT Image 2 情境展示 -->
+<div class="slide-container" id="slide4">
+    <h2 class="slide-title">情境展示：一張模糊商品照 → 完整廣告文宣</h2>
+    <div class="content-area">
+        <div class="demo-workflow">
+            <!-- Input column -->
+            <div class="demo-input-col">
+                <div class="demo-step">
+                    <span class="step-label">商品素材</span>
+                    <h4>僅一張模糊商品照</h4>
+                    <img class="demo-source-img" src="product-source.jpg" alt="享食尚滴雞精原始包裝照">
+                </div>
+                <div class="prompt-card">
+                    <span class="prompt-title"><i class="fa-solid fa-keyboard"></i> &nbsp;Prompt 內容</span>
+                    <div class="prompt-product">【享食尚】滴雞精 10 入禮盒</div>
+                    <ul>
+                        <li>規格：45ml × 10 入 / 盒</li>
+                        <li>100% 台灣黑羽土雞滴雞精</li>
+                        <li>產銷履歷認證・食安最高標準</li>
+                        <li>禽類粗蛋白萃取專利技術</li>
+                        <li>每 100ml 含 8.7g 蛋白質</li>
+                        <li>18 種胺基酸（含 8 種必需）</li>
+                        <li>無防腐劑・零脂肪・零膽固醇</li>
+                        <li>常溫保存・送禮自用首選</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="demo-arrow">
+                <div class="arrow-icon"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="arrow-label">GPT Image 2<br>Thinking Mode</div>
+                <div class="arrow-icon" style="background-color: transparent; border: none;"><i class="fa-solid fa-wand-magic-sparkles" style="font-size: 22px;"></i></div>
+            </div>
+
+            <!-- Output -->
+            <div class="demo-output">
+                <span class="step-label" style="color: var(--accent-primary);">AI 生成廣告文宣</span>
+                <div class="output-img-wrapper">
+                    <span class="ai-badge"><i class="fa-solid fa-bolt"></i> ONE-SHOT</span>
+                    <img src="ad-result.png" alt="GPT Image 2 一鍵生成的享食尚滴雞精完整廣告文宣">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5 -->
+<div class="slide-container" id="slide5-comparison">
+    <h2 class="slide-title">戰略對比：GPT Image 2 vs. Nano Banana 2</h2>
+    <div class="content-area">
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 16%;">比較類別</th>
+                        <th style="width: 28%;">GPT Image 2 <span style="color:var(--accent-primary); font-size:14px; margin-left:8px;">(精品設計師)</span></th>
+                        <th style="width: 28%;">Nano Banana 2 <span style="color:var(--accent-primary); font-size:14px; margin-left:8px;">(工業量產線)</span></th>
+                        <th style="width: 28%;">Nano Banana Pro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>核心美學<br>與設計語言</strong></td>
+                        <td>專業留白、優質字體管理與佈局層次。產出的首張結果通常即為正確。</td>
+                        <td>最鮮豔誘人、極致 HDR 效果卓越。主打 Flash 架構與效率。</td>
+                        <td>兼顧質感與生產效率，生產級細節處理。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>技術效能</strong></td>
+                        <td>拼字準確度：<strong>98.5%</strong><br>平均延遲：~4.2s (較慢)<br><span class="table-subtext">完美層級準確度</span></td>
+                        <td>拼字準確度：91.2%<br>平均延遲：<strong>~0.85s</strong><br><span class="table-subtext">業界最快</span></td>
+                        <td>拼字準確度：94.8%<br>平均延遲：~1.8s<br><span class="table-subtext">效能與品質均衡</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>成本定價</strong><br><span class="table-subtext">(預估單張 1K 解析度)</span></td>
+                        <td>約 <strong>NTD 6.8</strong> (USD 0.211)<br><span class="table-subtext">適合需要絕對排版精確度的專案</span></td>
+                        <td>約 <strong>NTD 2.2</strong> (USD 0.067)<br><span class="table-subtext">極低成本，是大規模自動化首選</span></td>
+                        <td>約 <strong>NTD 4.3</strong> (USD 0.134)<br><span class="table-subtext">專業多功能</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>場景推薦</strong></td>
+                        <td>精品品牌設計、專業雜誌排版、全球行銷活動主視覺。</td>
+                        <td>社群媒體自動化產線、高頻率發文、快速驗證創意。</td>
+                        <td>生產級多功能應用、中大型專案。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5 -->
+<div class="slide-container" id="slide5">
+    <h2 class="slide-title">匯報總結與下一步建議</h2>
+    <div class="content-area" style="justify-content: center;">
+        <div class="bullet-list">
+            <ul>
+                <li>
+                    <i class="fa-solid fa-bullseye"></i>
+                    <strong>核心定位轉型：</strong> 「這兩款模型的發布，代表我們的媒體工作流程將進入『策略自動化』階段。我們現在的核心優勢應從『產出內容』轉向『審核品質與策略定義』。」
+                </li>
+                <li>
+                    <i class="fa-solid fa-layer-group"></i>
+                    <strong>分流生產策略：</strong> 將 80% 的日常社群與即時新聞需求留在 Nano Banana 2，維持低成本、高產量的營運優勢。
+                </li>
+                <li>
+                    <i class="fa-solid fa-gem"></i>
+                    <strong>升級核心品質：</strong> 將高單價、高品質的專題報導與品牌視覺交給 GPT Image 2，減少設計師修正 AI 錯誤的無效工時。
+                </li>
+                <li>
+                    <i class="fa-solid fa-robot"></i>
+                    <strong>流程自動化：</strong> 導入 GPT-5.5 處理繁雜的跨平台發布與數據分析，將編輯團隊的人力釋放至「創意發想」與「內容品質審核」。
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
